@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PromptRefinery
 
-## Getting Started
+PromptRefinery is a Next.js-based web application for creating, editing, organizing, and previewing AI prompts. Designed for developers and AI practitioners, it offers a clean interface for managing prompt workflows.
 
-First, run the development server:
+## ✨ Features
+
+- ⚡ Live prompt preview and formatting
+- 🧠 Prompt critique API endpoints
+- 🗂 Prompt vault for version tracking
+- 🛡 Hydration guard for smoother SSR/CSR transitions
+- 🧪 Unit tests with Jest (example: `PromptEditor.test.tsx`)
+
+## 📦 Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Testing**: Jest + React Testing Library
+- **Icons**: Custom SVGs
+- **API Routes**: Built-in with Next.js
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/Biotrioo/PromptRefinery.git
+cd PromptRefinery
+
+2. Install dependencies
+
+npm install
+# or
+yarn install
+
+3. Run the development server
+
 npm run dev
 # or
 yarn dev
+
+Visit http://localhost:3000 to see the app.
+🧪 Running Tests
+
+npm test
 # or
-pnpm dev
-# or
-bun dev
-```
+yarn test
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📁 Folder Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+src/
+  app/
+    api/              # Backend API routes
+    layout.tsx        # Global layout
+    page.tsx          # Landing page
+  components/         # UI components
+  app/globals.css     # Global styles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+public/               # Static assets
 
-## Learn More
+🛠 Configuration
 
-To learn more about Next.js, take a look at the following resources:
+    Edit next.config.ts to customize Next.js behavior.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    Environment variables (not committed) should be added to .env.local.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Example:
 
-## Deploy on Vercel
+OPENAI_API_KEY=your-key-here
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License. See the LICENSE file for details.
+🙌 Acknowledgments
+
+    Inspired by tools like PromptLayer
+
+    Developed by @Biotrioo
+
+🗨 Feedback
+
+Feel free to open issues or pull requests. Contributions are welcome!
