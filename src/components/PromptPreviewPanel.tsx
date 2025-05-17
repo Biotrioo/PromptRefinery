@@ -146,8 +146,12 @@ export default function PromptPreviewPanel({ open, prompt, onClose, onEdit }: Pr
                 if (inline) {
                   return <code className="bg-gray-800 text-pink-400 px-1 rounded text-xs" {...rest}>{children}</code>;
                 }
-                // For block code, just use <pre> (no <code> inside)
-                return <pre className="bg-gray-900 rounded p-3 overflow-x-auto text-xs mb-2" {...(rest as React.HTMLAttributes<HTMLPreElement>)}>{children}</pre>;
+                // For block code, let ReactMarkdown handle <pre><code>...</code></pre>
+                return <code className="bg-gray-900 rounded p-3 overflow-x-auto text-xs mb-2" {...rest}>{children}</code>;
+              },
+              li({node, children, ...props}) {
+                const key = (node && 'position' in node && node.position && 'start' in node.position && node.position.start && 'offset' in node.position.start) ? node.position.start.offset : undefined;
+                return <li key={key} {...props}>{children}</li>;
               }
             }}
           >

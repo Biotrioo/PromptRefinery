@@ -166,8 +166,8 @@ export default function PromptVault() {
           </button>
           <div className="text-xs text-gray-400 mb-2">TAGS</div>
           <ul className="space-y-1">
-            {sidebarTags.map(tag => (
-              <li key={tag} className="flex items-center group">
+            {sidebarTags.map((tag, idx) => (
+              <li key={tag + '-' + idx} className="flex items-center group">
                 {editingTag === tag ? (
                   <>
                     <input
