@@ -1,5 +1,4 @@
 'use client';
-import Sidebar from "../components/Sidebar";
 import PromptVault from "../components/PromptVault";
 import PromptEditor from "../components/PromptEditor";
 import PromptCritique from "../components/PromptCritique";
@@ -31,7 +30,6 @@ export default function Home() {
     <>
       <HydrationGuard>
         <div className="flex h-screen min-h-0 bg-gray-950 text-gray-100">
-          <Sidebar />
           <main className="flex flex-1 min-h-0 overflow-y-auto">
             <section className="w-1/3 border-r border-gray-800 p-4 overflow-y-auto min-h-0">
               {/* <PromptVaultClient /> */}
@@ -39,7 +37,6 @@ export default function Home() {
             </section>
             <section className="flex-1 flex flex-col md:flex-row min-h-0">
               <div className="flex-1 flex flex-col h-full min-h-0 p-4 border-b md:border-b-0 md:border-r border-gray-800">
-                <button onClick={() => alert('New Prompt!')} style={{ marginBottom: 16 }}>New Prompt (Test)</button>
                 <PromptEditor />
               </div>
               <div className="flex-1 p-4 min-h-0">
