@@ -62,6 +62,12 @@ interface PromptState {
 
 let idCounter = 3;
 
+export function updateIdCounterFromPrompts(prompts: Prompt[]) {
+  if (prompts && prompts.length > 0) {
+    idCounter = Math.max(...prompts.map((p: Prompt) => p.id)) + 1;
+  }
+}
+
 const STORE_KEY = 'prompt-refinery-store';
 
 // Helper: localStorage adapter for SSR and fallback
@@ -72,7 +78,7 @@ const localStorageAdapter = {
         ? JSON.parse(localStorage.getItem(name) || 'null')
         : null
     ),
-  setItem: (name: string, value: any) =>
+  setItem: (name: string, value: unknown) =>
     Promise.resolve(
       typeof window !== 'undefined'
         ? localStorage.setItem(name, JSON.stringify(value))
@@ -119,14 +125,14 @@ export const usePromptStore = create<PromptState>()(
         const { prompts, activeTag, searchQuery } = get();
         let filtered = prompts;
         if (activeTag !== "All") {
-          filtered = filtered.filter((p) => p.tags.includes(activeTag));
+          filtered = filtered.filter((p: Prompt) => p.tags.includes(activeTag));
         }
         if (searchQuery.trim()) {
           const q = searchQuery.trim().toLowerCase();
           filtered = filtered.filter(
-            (p) =>
+            (p: Prompt) =>
               p.title.toLowerCase().includes(q) ||
-              p.tags.some((tag) => tag.toLowerCase().includes(q)) ||
+              p.tags.some((tag: string) => tag.toLowerCase().includes(q)) ||
               p.content.toLowerCase().includes(q)
           );
         }
@@ -136,7 +142,7 @@ export const usePromptStore = create<PromptState>()(
       setActiveTag: (tag) => set({ activeTag: tag }),
       updatePrompt: (id, data) =>
         set((state) => ({
-          prompts: state.prompts.map((p) => {
+          prompts: state.prompts.map((p: Prompt) => {
             if (p.id !== id) return p;
             const prevVersion = {
               title: p.title,
@@ -154,12 +160,12 @@ export const usePromptStore = create<PromptState>()(
         })),
       deletePrompt: (id) =>
         set((state) => ({
-          prompts: state.prompts.filter((p) => p.id !== id),
+          prompts: state.prompts.filter((p: Prompt) => p.id !== id),
           selectedPromptId: state.selectedPromptId === id ? null : state.selectedPromptId,
         })),
       revertPromptVersion: (id, versionIdx) =>
         set((state) => ({
-          prompts: state.prompts.map((p) => {
+          prompts: state.prompts.map((p: Prompt) => {
             if (p.id !== id || !p.versions || !p.versions[versionIdx]) return p;
             const v = p.versions[versionIdx];
             const newVersion = {
@@ -184,18 +190,16 @@ export const usePromptStore = create<PromptState>()(
       setSearchQuery: (query) => set({ searchQuery: query }),
       addTestSnapshot: (id, snapshot) =>
         set((state) => ({
-          prompts: state.prompts.map((p) =>
+          prompts: state.prompts.map((p: Prompt) =>
             p.id === id
               ? { ...p, testSnapshots: [snapshot, ...(p.testSnapshots || [])] }
               : p
           ),
         })),
-    }),
+    }) as PromptState,
     {
       name: STORE_KEY,
       storage: localStorageAdapter, // Always safe for SSR
-      // Persist the full state for compatibility
-      // Remove partialize for now to avoid type errors
     }
   )
 );

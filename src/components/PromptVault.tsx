@@ -274,8 +274,8 @@ export default function PromptVault() {
                     <div className="flex-1 min-w-0">
                       <div className="font-bold text-base mb-1 truncate">{prompt.title}</div>
                       <div className="flex gap-2 mb-1 flex-wrap">
-                        {prompt.tags.map((tag) => (
-                          <span key={tag} className="text-xs bg-gray-800 px-2 py-0.5 rounded text-gray-300">{tag}</span>
+                        {prompt.tags.map((tag, idx) => (
+                          <span key={tag + '-' + idx} className="text-xs bg-gray-800 px-2 py-0.5 rounded text-gray-300">{tag}</span>
                         ))}
                       </div>
                       <div className="text-xs text-gray-400 line-clamp-3 max-w-full">{stripMarkdown(prompt.content)}</div>

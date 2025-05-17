@@ -4,7 +4,7 @@ import PromptEditor from "../components/PromptEditor";
 import PromptCritique from "../components/PromptCritique";
 import { HydrationGuard } from "../components/HydrationGuard";
 import PromptPreviewPanel from "../components/PromptPreviewPanel";
-import { usePromptStore } from "../store/promptStore";
+import { usePromptStore, updateIdCounterFromPrompts } from "../store/promptStore";
 import { migrateToIndexedDBIfPossible } from "../store/promptStore";
 import { useEffect } from "react";
 
@@ -16,7 +16,8 @@ export default function Home() {
 
   useEffect(() => {
     migrateToIndexedDBIfPossible();
-  }, []);
+    updateIdCounterFromPrompts(prompts);
+  }, [prompts]);
 
   // Placeholder for editor focus/scroll
   const handleEdit = () => {

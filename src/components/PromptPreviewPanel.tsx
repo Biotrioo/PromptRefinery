@@ -132,8 +132,8 @@ export default function PromptPreviewPanel({ open, prompt, onClose, onEdit }: Pr
       </div>
       {/* Tags */}
       <div className="flex flex-wrap gap-2 p-4">
-        {prompt.tags.map(tag => (
-          <span key={tag} className="bg-gray-800 text-xs px-2 py-0.5 rounded text-gray-300">{tag}</span>
+        {prompt.tags.map((tag, idx) => (
+          <span key={tag + '-' + idx} className="bg-gray-800 text-xs px-2 py-0.5 rounded text-gray-300">{tag}</span>
         ))}
       </div>
       {/* Content */}
