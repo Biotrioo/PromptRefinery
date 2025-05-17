@@ -99,7 +99,7 @@ export const usePromptStore = create<PromptState>()(
       searchQuery: "",
       providerSettings: {
         provider: 'openrouter',
-        apiKey: '',
+        apiKey: typeof window !== 'undefined' ? (process.env.NEXT_PUBLIC_OPENROUTER_API_KEY || '') : '',
         endpoint: 'https://openrouter.ai/api/v1/chat/completions',
         model: 'openai/gpt-3.5-turbo',
       },

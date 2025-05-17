@@ -141,14 +141,13 @@ export default function PromptPreviewPanel({ open, prompt, onClose, onEdit }: Pr
         <div className="prose prose-invert max-w-none">
           <ReactMarkdown
             components={{
-              code({children, ...props}) {
-                // @ts-expect-error: react-markdown type issue for inline
-                const isInline = props.inline;
-                return isInline ? (
-                  <code className="bg-gray-800 text-pink-400 px-1 rounded text-xs" {...props}>{children}</code>
-                ) : (
-                  <pre className="bg-gray-900 rounded p-3 overflow-x-auto text-xs mb-2"><code {...props}>{children}</code></pre>
-                );
+              code(props) {
+                const {inline, children, ...rest} = props as {inline?: boolean, children: React.ReactNode};
+                if (inline) {
+                  return <code className="bg-gray-800 text-pink-400 px-1 rounded text-xs" {...rest}>{children}</code>;
+                }
+                // For block code, just use <pre> (no <code> inside)
+                return <pre className="bg-gray-900 rounded p-3 overflow-x-auto text-xs mb-2" {...(rest as React.HTMLAttributes<HTMLPreElement>)}>{children}</pre>;
               }
             }}
           >

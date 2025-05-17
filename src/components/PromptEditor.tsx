@@ -174,6 +174,14 @@ export default function PromptEditor() {
     }
   }, [success]);
 
+  useEffect(() => {
+    // Add spinner animation style on client only
+    const style = document.createElement('style');
+    style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+    document.head.appendChild(style);
+    return () => { document.head.removeChild(style); };
+  }, []);
+
   return (
     <div style={{ padding: 40 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
@@ -183,14 +191,6 @@ export default function PromptEditor() {
             : "Creating New Prompt"}
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <button
-            style={{ padding: 8, fontSize: 14, background: '#166534', color: 'white', borderRadius: 6, border: '1px solid #14532d' }}
-            onClick={() => alert('Test Prompt Clicked!')}
-            disabled={!prompt.trim()}
-            aria-label="Test Prompt"
-          >
-            ▶️ Test Prompt
-          </button>
           <button
             style={{ padding: 8, fontSize: 14, background: '#27272a', color: '#d4d4d8', borderRadius: 6, border: '1px solid #3f3f46' }}
             onClick={handleNewPrompt}
@@ -248,9 +248,4 @@ export default function PromptEditor() {
       </div>
     </div>
   );
-}
-
-/* Add spinner animation */
-const style = document.createElement('style');
-style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
-document.head.appendChild(style); 
+} 

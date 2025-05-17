@@ -143,11 +143,21 @@ export default function PromptVault() {
     e.target.value = "";
   };
 
+  // Helper to strip markdown for card preview
+  function stripMarkdown(md: string): string {
+    return md
+      .replace(/[#*_`>\-]/g, '') // Remove markdown symbols
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, '') // Remove images
+      .replace(/\[[^\]]*\]\([^)]*\)/g, '') // Remove links
+      .replace(/\n+/g, ' ') // Replace newlines with space
+      .trim();
+  }
+
   return (
     <div className="h-full flex flex-col">
-      <div className="flex">
+      <div className="flex h-full min-h-0">
         {/* Sidebar: Dynamic tags */}
-        <div className="w-40 flex-shrink-0 border-r border-gray-800 pr-2 mr-4">
+        <div className="min-w-0 w-48 max-w-xs flex-shrink-0 border-r border-gray-800 pr-2 mr-4 overflow-y-auto">
           <button
             className="w-full text-left px-2 py-1 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 mb-2"
             onClick={() => setShowSettings(true)}
@@ -215,7 +225,7 @@ export default function PromptVault() {
           {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
         </div>
         {/* Main content */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0 flex flex-col">
           <h3 className="text-md font-semibold mb-4">Prompt Vault</h3>
           <div className="flex gap-2 mb-4">
             <button
@@ -268,7 +278,7 @@ export default function PromptVault() {
                           <span key={tag} className="text-xs bg-gray-800 px-2 py-0.5 rounded text-gray-300">{tag}</span>
                         ))}
                       </div>
-                      <div className="text-xs text-gray-400 line-clamp-3 max-w-full">{prompt.content}</div>
+                      <div className="text-xs text-gray-400 line-clamp-3 max-w-full">{stripMarkdown(prompt.content)}</div>
                     </div>
                     <div className="flex flex-col gap-1 ml-2">
                       <button
